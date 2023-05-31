@@ -4,19 +4,18 @@ class Answer extends StatelessWidget {
   final void Function() selectHandler;
   final String answerText;
 
-  Answer(this.selectHandler, this.answerText);
+  const Answer(this.selectHandler, this.answerText, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue, //Updated code for color:
-          onPrimary: Colors.white, //Updated text color:
+          foregroundColor: Colors.white, backgroundColor: Colors.blue, //Updated text color:
         ),
-        child: Text(answerText),
         onPressed: selectHandler,
+        child: Text(answerText),
       ),
     );
   }
