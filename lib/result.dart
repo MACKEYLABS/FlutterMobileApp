@@ -3,21 +3,29 @@ import 'package:flutter/material.dart';
 class Result extends StatelessWidget {
   final int resultScore;
   final VoidCallback resetHandler;
+  final int totalQuestions;
 
-  const Result(this.resultScore, this.resetHandler, {super.key});
+  const Result(this.resultScore, this.resetHandler, this.totalQuestions,
+      {Key? key})
+      : super(key: key);
 
   String get resultPhrase {
-    String resultText = 'You finished the test!';
-    if (resultScore == 1) {
-      resultText = 'You only got 1 answer right. ';
-    } else if (resultScore == 2) {
-      resultText = 'You got 2/3 correct!';
-    } else if (resultScore == 3) {
-      resultText = 'You scorred 100%!';
+    String resultText;
+    double percentage = (resultScore / totalQuestions) * 100;
+
+    if (percentage <= 20) {
+      resultText = 'You are a Linux Failure.';
+    } else if (percentage <= 40) {
+      resultText = 'You only got two questions right, come on!';
+    } else if (percentage <= 60) {
+      resultText = 'You still don\'t know that much about Linus.';
+    } else if (percentage <= 80) {
+      resultText = 'Ok, you\'re Linux knowledge is starting to impress me!';
     } else {
-      resultText = 'You scored a 0, please study!';
+      resultText = 'You are a Linux genius!!!';
     }
-    return resultText;
+
+    return '$resultText\nYou scored ${percentage.toStringAsFixed(2)}%!';
   }
 
   @override
@@ -30,9 +38,14 @@ class Result extends StatelessWidget {
             style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
+          Text(
+            'Score: $resultScore/$totalQuestions',
+            style: const TextStyle(fontSize: 24),
+            textAlign: TextAlign.center,
+          ),
           TextButton(
             style: TextButton.styleFrom(
-              foregroundColor: Colors.blue, // This is the textColor equivalent
+              primary: Colors.blue, // This is the textColor equivalent
             ),
             onPressed: resetHandler,
             child: const Text(

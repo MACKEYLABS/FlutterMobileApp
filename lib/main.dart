@@ -42,6 +42,18 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
         {'text': 'sudo apt-get update && sudo apt-get upgrade', 'score': 1},
       ],
     },
+    {
+      'questionText': 'Who is considered the founder of Linux?',
+      'correctAnswer': 'Linus Torvalds',
+      'isFillIn': true,
+      'totalScore': 1,
+    },
+    {
+      'questionText': 'What is the most popular hacking distro of Linux?',
+      'correctAnswer': 'Kali',
+      'isFillIn': true,
+      'totalScore': 1,
+    },
   ];
 
   var _questionIndex = 0;
@@ -50,6 +62,17 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   AnimationController? controller;
   Animation<double>? animation;
+
+  int get totalPossibleScore {
+    return _questions.fold(0, (sum, question) {
+      var score = question['totalScore'];
+      if (score is int) {
+        return sum + score;
+      } else {
+        return sum;
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -172,7 +195,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result(_totalScore, _resetQuiz),
+              : Result(
+                  _totalScore, _resetQuiz, _questions.length), // Fixed line
         ),
       ),
     );
