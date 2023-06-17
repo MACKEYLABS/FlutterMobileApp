@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import './quiz.dart';
 import './result.dart';
 
@@ -121,6 +120,18 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     });
   }
 
+// start the quiz in dark mode!
+  void _restartQuizDarkMode() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+      _isDarkMode =
+          true; //setting the dark mode to true when restarting the quiz
+      controller!.reset();
+      controller!.forward();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -195,8 +206,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result(
-                  _totalScore, _resetQuiz, _questions.length), // Fixed line
+              : Result(_totalScore, _resetQuiz, _questions.length,
+                  _restartQuizDarkMode), // Fixed line
         ),
       ),
     );

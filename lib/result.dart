@@ -4,9 +4,11 @@ class Result extends StatelessWidget {
   final int resultScore;
   final VoidCallback resetHandler;
   final int totalQuestions;
+  final Function toggleTheme; //added a function for the theme toggle
 
   const Result(this.resultScore, this.resetHandler, this.totalQuestions,
-      {Key? key})
+      this.toggleTheme,
+      {Key? key}) //added this.toggleTheme
       : super(key: key);
 
   String get resultPhrase {
@@ -18,7 +20,7 @@ class Result extends StatelessWidget {
     } else if (percentage <= 40) {
       resultText = 'You only got two questions right, come on!';
     } else if (percentage <= 60) {
-      resultText = 'You still don\'t know that much about Linus.';
+      resultText = 'You still don\'t know that much about Linux.';
     } else if (percentage <= 80) {
       resultText = 'Ok, you\'re Linux knowledge is starting to impress me!';
     } else {
@@ -52,6 +54,11 @@ class Result extends StatelessWidget {
               'Restart Quiz',
             ),
           ),
+          ElevatedButton(
+            //Connects a function to a button
+            child: const Text('Change Theme'),
+            onPressed: () => toggleTheme(),
+          )
         ],
       ),
     );
