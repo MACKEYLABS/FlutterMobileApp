@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import './quiz.dart';
 import './result.dart';
 
@@ -55,14 +54,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
       'totalScore': 1,
     },
   ];
-
   var _questionIndex = 0;
   var _totalScore = 0;
   var _isDarkMode = false; //track dark mode status
-
   AnimationController? controller;
   Animation<double>? animation;
-
   int get totalPossibleScore {
     return _questions.fold(0, (sum, question) {
       var score = question['totalScore'];
@@ -77,14 +73,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-
     animation = CurvedAnimation(parent: controller!, curve: Curves.easeInOut);
-
     controller!.forward();
   }
 
@@ -111,13 +104,24 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   void _answerQuestion(int score) {
     _totalScore += score;
-
     setState(() {
       _questionIndex = _questionIndex + 1;
       if (_questionIndex < _questions.length) {
         controller!.reset();
         controller!.forward();
       }
+    });
+  }
+
+// start the quiz in dark mode!
+  void _restartQuizDarkMode() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+      _isDarkMode =
+          true; //setting the dark mode to true when restarting the quiz
+      controller!.reset();
+      controller!.forward();
     });
   }
 
@@ -195,8 +199,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result(
-                  _totalScore, _resetQuiz, _questions.length), // Fixed line
+              : Result(_totalScore, _resetQuiz, _questions.length,
+                  _restartQuizDarkMode), // Fixed line
         ),
       ),
     );
