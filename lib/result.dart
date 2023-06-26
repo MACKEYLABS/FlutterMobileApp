@@ -49,7 +49,7 @@ class Result extends StatelessWidget {
             ),
             onPressed: resetHandler,
             child: const Text(
-              'Restart Quiz in Light Mode',
+              'Restart Quiz',
             ),
           ),
           ElevatedButton(
