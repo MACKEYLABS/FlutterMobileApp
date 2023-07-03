@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import './quiz.dart';
 import './result.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,12 +46,14 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
       'correctAnswer': 'Linus Torvalds',
       'isFillIn': true,
       'totalScore': 1,
+      'image': 'assets/linus1.jpeg', //path to the 1st linus image
     },
     {
       'questionText': 'What is the most popular hacking distro of Linux?',
       'correctAnswer': 'Kali',
       'isFillIn': true,
       'totalScore': 1,
+      'image': 'assets/kali1.jpeg', //2nd path to kali linux image
     },
   ];
   var _questionIndex = 0;

@@ -19,14 +19,27 @@ class Quiz extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isFillIn = questions[questionIndex]['isFillIn'] as bool? ?? false;
     if (isFillIn) {
-      return Fillquestion(
-        questions[questionIndex]['questionText'] as String,
-        (String value) {
-          answerQuestion(
-              value == questions[questionIndex]['correctAnswer'] as String
-                  ? 1
-                  : 0);
-        },
+      return Column(
+        children: [
+          if (questions[questionIndex]['image'] != null)
+            Container(
+              width: double.infinity,
+              height: 200,
+              child: Image.asset(
+                questions[questionIndex]['image'] as String,
+                fit: BoxFit.cover,
+              ),
+            ),
+          Fillquestion(
+            questions[questionIndex]['questionText'] as String,
+            (String value) {
+              answerQuestion(
+                  value == questions[questionIndex]['correctAnswer'] as String
+                      ? 1
+                      : 0);
+            },
+          ),
+        ],
       );
     } else {
       return Column(
@@ -34,6 +47,15 @@ class Quiz extends StatelessWidget {
           Question(
             questions[questionIndex]['questionText'] as String,
           ),
+          if (questions[questionIndex]['image'] != null)
+            Container(
+              width: double.infinity,
+              height: 200,
+              child: Image.asset(
+                questions[questionIndex]['image'] as String,
+                fit: BoxFit.cover,
+              ),
+            ),
           ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
               .map((answer) {
             return Answer(() => answerQuestion(answer['score'] as int),
