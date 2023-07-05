@@ -2,6 +2,12 @@ import './quiz.dart';
 import './result.dart';
 import 'package:flutter/material.dart';
 
+enum QuestionType {
+  MultipleChoice,
+  FillInTheBlank,
+  TrueOrFalse,
+}
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -15,6 +21,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   final _questions = const [
     {
       'questionText': 'What command do you use to update a Linux distro?',
+      'questionType': QuestionType.MultipleChoice,
       'answers': [
         {'text': 'sudo apt-get update', 'score': 1},
         {'text': 'sudo update distro', 'score': 0},
@@ -24,6 +31,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     },
     {
       'questionText': 'What command do you use to upgrade a Linux distro?',
+      'questionType': QuestionType.MultipleChoice,
       'answers': [
         {'text': 'sudo upgrade distro', 'score': 0},
         {'text': 'sudo apt-get upgrade', 'score': 1},
@@ -34,6 +42,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     {
       'questionText':
           'What command do you use to update and upgrade a Linux distro',
+      'questionType': QuestionType.MultipleChoice,
       'answers': [
         {'text': 'sudo apt upgrade && update', 'score': 0},
         {'text': 'sudo apt-get update && upgrade', 'score': 0},
@@ -43,17 +52,40 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     },
     {
       'questionText': 'Who is considered the founder of Linux?',
+      'questionType': QuestionType.FillInTheBlank,
       'correctAnswer': 'Linus Torvalds',
       'isFillIn': true,
       'totalScore': 1,
       'image': 'assets/linus1.jpeg', //path to the 1st linus image
     },
     {
-      'questionText': 'What is the most popular hacking distro of Linux?',
+      'questionText':
+          'What is the most popular penetration testing distrobution of Linux?',
+      'questionType': QuestionType.FillInTheBlank,
       'correctAnswer': 'Kali',
       'isFillIn': true,
       'totalScore': 1,
       'image': 'assets/kali1.jpeg', //2nd path to kali linux image
+    },
+    {
+      'questionText':
+          'Fedora is Debian based and has no similarities to Red Hat Liunux',
+      'questionType': QuestionType.TrueOrFalse,
+      'answers': [
+        {'text': 'True', 'score': 0},
+        {'text': 'False', 'score': 1}
+      ],
+      'image': 'assets/fedora.jpeg',
+    },
+    {
+      'questionText': 'Is the picture shown Ubuntu Linux?',
+      'questionType': QuestionType.TrueOrFalse,
+      'answers': [
+        {'text': 'True', 'score': 1},
+        {'text': 'False', 'score': 0}
+      ],
+      'totalScore': 1,
+      'image': 'assets/ubuntu.jpeg',
     },
   ];
   var _questionIndex = 0;
@@ -112,18 +144,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
         controller!.reset();
         controller!.forward();
       }
-    });
-  }
-
-// start the quiz in dark mode!
-  void _restartQuizDarkMode() {
-    setState(() {
-      _questionIndex = 0;
-      _totalScore = 0;
-      _isDarkMode =
-          true; //setting the dark mode to true when restarting the quiz
-      controller!.reset();
-      controller!.forward();
     });
   }
 
@@ -202,7 +222,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                   questions: _questions,
                 )
               : Result(_totalScore, _resetQuiz, _questions.length,
-                  _restartQuizDarkMode), // Fixed line
+                  _toggleDarkMode), // Fixed line
         ),
       ),
     );

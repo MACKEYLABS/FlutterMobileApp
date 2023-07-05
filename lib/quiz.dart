@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './question.dart';
 import './answer.dart';
 import 'fillquestion.dart';
+import './main.dart';
 
 class Quiz extends StatelessWidget {
   final List<Map<String, Object>> questions;
@@ -17,9 +18,37 @@ class Quiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var questionType = questions[questionIndex]['questionType'] as QuestionType;
+    Widget questionWidget;
+
+    if (questionType == QuestionType.TrueOrFalse) {
+      questionWidget = Column(
+        children: [
+          if (questions[questionIndex]['image'] != null)
+            Container(
+              width: double.infinity,
+              height: 200,
+              child: Image.asset(
+                questions[questionIndex]['image'] as String,
+                fit: BoxFit.cover,
+              ),
+            ),
+          Question(questions[questionIndex]['questionText'] as String),
+          Answer(
+              () => answerQuestion(
+                  (questions[questionIndex]['correctAnswer'] as bool) ? 1 : 0),
+              'True'),
+          Answer(
+              () => answerQuestion(
+                  (questions[questionIndex]['correctAnswer'] as bool) ? 0 : 1),
+              'False'),
+        ],
+      );
+    }
+
     bool isFillIn = questions[questionIndex]['isFillIn'] as bool? ?? false;
     if (isFillIn) {
-      return Column(
+      questionWidget = Column(
         children: [
           if (questions[questionIndex]['image'] != null)
             Container(
@@ -42,11 +71,8 @@ class Quiz extends StatelessWidget {
         ],
       );
     } else {
-      return Column(
+      questionWidget = Column(
         children: [
-          Question(
-            questions[questionIndex]['questionText'] as String,
-          ),
           if (questions[questionIndex]['image'] != null)
             Container(
               width: double.infinity,
@@ -56,6 +82,9 @@ class Quiz extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+          Question(
+            questions[questionIndex]['questionText'] as String,
+          ),
           ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
               .map((answer) {
             return Answer(() => answerQuestion(answer['score'] as int),
@@ -64,5 +93,7 @@ class Quiz extends StatelessWidget {
         ],
       );
     }
+
+    return questionWidget;
   }
 }
