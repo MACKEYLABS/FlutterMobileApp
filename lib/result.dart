@@ -52,11 +52,11 @@ class Result extends StatelessWidget {
               'Restart Quiz',
             ),
           ),
-          ElevatedButton(
-            //Connects a function to a button
-            child: const Text('Restart Quiz in Dark Mode'),
-            onPressed: () => toggleTheme(),
-          )
+          //ElevatedButton(
+          //Connects a function to a button
+          //child: const Text('Restart Quiz in Dark Mode'),
+          //onPressed: () => toggleTheme(),
+          //)
         ],
       ),
     );

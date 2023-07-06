@@ -30,8 +30,7 @@ class Answer extends StatelessWidget {
               50, // This is the height
             ),
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(10), // if you need rounded corners
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           onPressed: selectHandler,
