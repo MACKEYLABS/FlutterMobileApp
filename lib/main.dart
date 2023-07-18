@@ -1,6 +1,9 @@
 import './quiz.dart';
 import './result.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum QuestionType {
   MultipleChoice,
@@ -8,9 +11,26 @@ enum QuestionType {
   TrueOrFalse,
 }
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseFirestore.instance.settings = const Settings(
+    host: 'localhost:8085',
+    sslEnabled: false,
+    persistenceEnabled: false,
+  );
+  runApp(const MaterialApp(
+    home: MyApp(),
+  ));
+}
+
+//void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
@@ -60,7 +80,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     },
     {
       'questionText':
-          'What is the most popular penetration testing distrobution of Linux?',
+          'What is the most popular penetration testing distribution of Linux?',
       'questionType': QuestionType.FillInTheBlank,
       'correctAnswer': 'Kali',
       'isFillIn': true,
@@ -69,23 +89,23 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     },
     {
       'questionText':
-          'Fedora is Debian based and has no similarities to Red Hat Liunux',
+          'Fedora is Debian based and has no similarities to Red Hat Liunux.',
       'questionType': QuestionType.TrueOrFalse,
       'answers': [
         {'text': 'True', 'score': 0},
         {'text': 'False', 'score': 1}
       ],
-      'image': 'assets/fedora.jpeg',
+      'image': 'assets/fedora.jpeg', //3rd path to fedora image
     },
     {
-      'questionText': 'Is the picture shown Ubuntu Linux?',
+      'questionText': 'The image shown is Ubuntu Linux.',
       'questionType': QuestionType.TrueOrFalse,
       'answers': [
         {'text': 'True', 'score': 1},
         {'text': 'False', 'score': 0}
       ],
       'totalScore': 1,
-      'image': 'assets/ubuntu.jpeg',
+      'image': 'assets/ubuntu.jpeg', //5th path to ubuntu image
     },
   ];
   var _questionIndex = 0;
@@ -164,7 +184,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                     fontFamily: 'Roboto',
                   )
                   .copyWith(
-                    headline6: TextStyle(
+                    titleLarge: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -182,17 +202,17 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                     fontFamily: 'Roboto',
                   )
                   .copyWith(
-                    headline6: TextStyle(
+                    titleLarge: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   )),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('My First App'),
+          title: const Text('My First App'),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.brightness_6),
+              icon: const Icon(Icons.brightness_6),
               onPressed: _toggleDarkMode,
             ),
             Padding(

@@ -25,7 +25,7 @@ class Quiz extends StatelessWidget {
       questionWidget = Column(
         children: [
           if (questions[questionIndex]['image'] != null)
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 200,
               child: Image.asset(
@@ -34,14 +34,11 @@ class Quiz extends StatelessWidget {
               ),
             ),
           Question(questions[questionIndex]['questionText'] as String),
-          Answer(
-              () => answerQuestion(
-                  (questions[questionIndex]['correctAnswer'] as bool) ? 1 : 0),
-              'True'),
-          Answer(
-              () => answerQuestion(
-                  (questions[questionIndex]['correctAnswer'] as bool) ? 0 : 1),
-              'False'),
+          ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
+              .map((answer) {
+            return Answer(() => answerQuestion(answer['score'] as int),
+                answer['text'] as String);
+          }).toList(),
         ],
       );
     }
@@ -51,7 +48,7 @@ class Quiz extends StatelessWidget {
       questionWidget = Column(
         children: [
           if (questions[questionIndex]['image'] != null)
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 200,
               child: Image.asset(
@@ -74,9 +71,9 @@ class Quiz extends StatelessWidget {
       questionWidget = Column(
         children: [
           if (questions[questionIndex]['image'] != null)
-            Container(
+            SizedBox(
               width: double.infinity,
-              height: 200,
+              height: 300,
               child: Image.asset(
                 questions[questionIndex]['image'] as String,
                 fit: BoxFit.cover,

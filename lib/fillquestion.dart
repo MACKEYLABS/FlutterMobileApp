@@ -19,8 +19,7 @@ class _FillquestionState extends State<Fillquestion> {
 
   @override
   void dispose() {
-    _controller
-        .dispose(); // Don't forget to dispose of the controller when the widget is removed from the widget tree.
+    _controller.dispose();
     super.dispose();
   }
 
@@ -43,8 +42,8 @@ class _FillquestionState extends State<Fillquestion> {
               _controller.clear(); // Clears the textfield after submission.
             },
             textAlign: TextAlign.center, // Centers the text input.
-            style: TextStyle(fontSize: 24), // Changes the text size.
-            decoration: InputDecoration(
+            style: const TextStyle(fontSize: 24), // Changes the text size.
+            decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(
                   10.0), // Creates padding around the input field.
             ),

@@ -19,12 +19,11 @@ class Answer extends StatelessWidget {
             MediaQuery.of(context).size.width * 0.8, // 80% of the total width
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.blue, // background
-            onPrimary: Colors.white, // foreground (text color)
-            textStyle: TextStyle(
+            foregroundColor: Colors.white, backgroundColor: Colors.blue, // foreground (text color)
+            textStyle: const TextStyle(
               fontSize: 16,
             ),
-            minimumSize: Size(
+            minimumSize: const Size(
               double
                   .infinity, // This makes the button's width to fill the parent (SizedBox)
               50, // This is the height

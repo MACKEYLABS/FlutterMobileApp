@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/LeaderboardWidget.dart';
+import 'ScoreWidget.dart';
 
 class Result extends StatelessWidget {
   final int resultScore;
@@ -45,18 +47,30 @@ class Result extends StatelessWidget {
           ),
           ElevatedButton(
             style: TextButton.styleFrom(
-              primary: Colors.white, // This is the textColor equivalent
+              foregroundColor: Colors.white,
             ),
             onPressed: resetHandler,
             child: const Text(
               'Restart Quiz',
             ),
           ),
-          //ElevatedButton(
-          //Connects a function to a button
-          //child: const Text('Restart Quiz in Dark Mode'),
-          //onPressed: () => toggleTheme(),
-          //)
+          ScoreWidget(score: resultScore),
+          const Expanded(child: LeaderboardWidget()),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => Scaffold(
+                    appBar: AppBar(
+                      title: Text('Leaderboard'),
+                    ),
+                    body: const LeaderboardWidget(),
+                  ),
+                ),
+              );
+            },
+            child: const Text('View Leaderboard'),
+          ),
         ],
       ),
     );
