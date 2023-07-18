@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "409533440455",
+    "project_id": "wonderland-da519",
+    "storage_bucket": "wonderland-da519.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409533440455:android:f5f7f2ab4eb5dfeb8279e2",
+        "android_client_info": {
+          "package_name": "com.example.test_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409533440455-piok5rf7kap5g75lclha41kgehu76l72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBz1MtuvMcRzz3xphJki5tLAaxnyqATQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409533440455-piok5rf7kap5g75lclha41kgehu76l72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
